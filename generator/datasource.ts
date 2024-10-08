@@ -1,5 +1,9 @@
 import parser from 'xml2js'
 
+const wipMessages = [
+  397, 410, 411, 412, 413 // messages needed for event wip interface
+]
+
 import {
   extractArrayItemType,
   extractArraySize,
@@ -212,7 +216,7 @@ export class XmlDataSource {
       workInProgress: isWorkInProgress(message),
       fields: this.readMessageFieldDefs(message),
       wip: Boolean(message.wip)
-    } as MessageDef)).filter((x: any) => !x.wip)
+    } as MessageDef)).filter((x: any) => !x.wip || wipMessages.includes(x.id))
 
     return pipeable(result)
       // calculate payload length
